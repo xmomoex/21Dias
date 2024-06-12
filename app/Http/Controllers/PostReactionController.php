@@ -23,16 +23,13 @@ class PostReactionController extends Controller
             ->first();
 
         if ($reaction) {
-            // Si la reacción existe y el tipo es el mismo, eliminar la reacción
             if ($reaction->type == $request->type) {
                 $reaction->delete();
             } else {
-                // Si el tipo es diferente, actualizar la reacción
                 $reaction->type = $request->type;
                 $reaction->save();
             }
         } else {
-            // Si no existe, crear una nueva
             PostReaction::create([
                 'post_id' => $request->post_id,
                 'type' => $request->type,
@@ -40,6 +37,19 @@ class PostReactionController extends Controller
             ]);
         }
 
-        return back()->with('success', 'Reaction added/updated successfully.');
+        $likeCount = PostReaction::where('post_id', $request->post_id)->where('type', 'like')->count();
+        $dislikeCount = PostReaction::where('post_id', $request->post_id)->where('type', 'dislike')->count();
+
+        // Devolver el tipo de reacción actual del usuario
+        $userReaction = PostReaction::where('post_id', $request->post_id)
+            ->where('user_id', Auth::id())
+            ->first();
+
+        return response()->json([
+            'success' => true,
+            'likeCount' => $likeCount,
+            'dislikeCount' => $dislikeCount,
+            'userReaction' => $userReaction ? $userReaction->type : null
+        ]);
     }
 }

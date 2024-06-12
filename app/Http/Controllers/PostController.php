@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Models\Post;
 use App\Models\Challenge;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Str;
 
 class PostController extends Controller
 {
@@ -20,9 +21,10 @@ class PostController extends Controller
             $post->deleted_by = Auth::id();
             $post->save();
             $post->delete();
+            return response()->json(['success' => true, 'message' => 'Post deleted successfully.']);
         }
 
-        return redirect()->route('posts.index')->with('success', 'Post deleted successfully.');
+        return response()->json(['success' => false, 'message' => 'Post not found.'], 404);
     }
 
 
@@ -40,7 +42,6 @@ class PostController extends Controller
             'group_id' => 'nullable|exists:groups,id',
             'file' => 'nullable|mimes:jpg,jpeg,png,bmp,gif,svg,webp|max:2048', // Limitar tipos de archivo y tamaño
             'is_public' => 'nullable|boolean', // Nuevo campo para la privacidad del post
-            'challenge_id' => 'nullable|exists:challenges,id',
         ]);
 
 
@@ -62,7 +63,6 @@ class PostController extends Controller
             'group_id' => $request->group_id,
             'file_path' => $filePath,
             'is_public' => $isPublic,
-            'challenge_id' => $request->challenge_id, // Agregar el challenge_id aquí si está presente en la solicitud
         ]);
 
         if ($request->challenge_id) {
