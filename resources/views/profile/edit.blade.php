@@ -30,6 +30,10 @@
                     @include('profile.partials.delete-user-form')
                 </div>
             </div>
+
+            <div class="profile-edit">
+                @include('profile.partials.update-user-avatar')
+            </div>
         </div>
     </div>
 </x-app-layout>

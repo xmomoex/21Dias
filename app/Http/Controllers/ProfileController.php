@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
@@ -71,5 +72,46 @@ class ProfileController extends Controller
         $request->session()->regenerateToken();
 
         return Redirect::to('/');
+    }
+
+    public function updateAvatar(Request $request)
+    {
+        $request->validate([
+            'avatar' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+        ]);
+
+        $user = Auth::user();
+
+        // Eliminar el avatar anterior si existe
+        if ($user->avatar_path) {
+            Storage::disk('public')->delete($user->avatar_path);
+        }
+
+        // Guardar el nuevo avatar
+        $avatarPath = $request->file('avatar')->store('avatars', 'public');
+
+        // Actualizar el campo avatar_path en la base de datos
+        $user->avatar_path = $avatarPath;
+        $user->save();
+
+        return redirect()->back()->with('success', 'Avatar actualizado correctamente.');
+    }
+
+    /**
+     * Remove the user's avatar.
+     */
+    public function removeAvatar(Request $request)
+    {
+        $user = Auth::user();
+
+        // Eliminar el avatar anterior si existe
+        if ($user->avatar_path) {
+            Storage::disk('public')->delete($user->avatar_path);
+            $user->avatar_path = null;
+            $user->save();
+            return redirect()->back()->with('success', 'Avatar eliminado correctamente.');
+        }
+
+        return redirect()->back()->with('error', 'No hay avatar para eliminar.');
     }
 }

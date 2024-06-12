@@ -6,6 +6,7 @@ use App\Http\Controllers\PostController;
 use App\Http\Controllers\PostReactionController;
 use App\Http\Controllers\PublicProfileController;
 use App\Http\Controllers\CommentController;
+use App\Http\Controllers\ChallengeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\FollowRequestController;
@@ -15,7 +16,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
+Route::resource('challenges', ChallengeController::class);
+
+
+//Route::get('/dashboard', [DashboardController::class, 'index'])->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -40,8 +44,12 @@ Route::middleware('auth')->group(function () {
     Route::post('/follow-requests/accept/{id}', [FollowRequestController::class, 'accept'])->name('follow_requests.accept')->middleware('auth');
     Route::post('/follow-requests/decline/{id}', [FollowRequestController::class, 'decline'])->name('follow_requests.decline')->middleware('auth');
     Route::patch('/profile/privacy', [ProfileController::class, 'updatePrivacy'])->name('profile.updatePrivacy');
+    Route::delete('/comments/{comment}', [CommentController::class, 'destroy'])->name('comments.destroy');
     Route::post('/comments/{id}/react', [CommentController::class, 'react'])->name('comments.react');
     Route::delete('/comments/{id}/remove-reaction', [CommentController::class, 'removeReaction'])->name('comments.removeReaction');
+    Route::get('/challenges/{challenge}/posts', [ChallengeController::class, 'showPosts'])->name('challenges.posts');
+    Route::post('profile/update-avatar', [ProfileController::class, 'updateAvatar'])->name('profile.updateAvatar');
+    Route::post('profile/remove-avatar', [ProfileController::class, 'removeAvatar'])->name('profile.removeAvatar');
 });
 
 require __DIR__ . '/auth.php';

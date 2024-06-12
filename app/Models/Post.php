@@ -11,7 +11,8 @@ class Post extends Model
     use HasFactory;
     use SoftDeletes;
 
-    protected $fillable = ['body', 'user_id', 'group_id', 'deleted_by', 'deleted_at', 'file_path', 'is_public'];
+    protected $fillable = ['body', 'user_id', 'group_id', 'deleted_by', 'deleted_at', 'file_path', 'is_public', 'challenge_id'];
+
 
     public function user()
     {
@@ -35,5 +36,10 @@ class Post extends Model
     public function comments()
     {
         return $this->hasMany(Comment::class);
+    }
+
+    public function challenges()
+    {
+        return $this->belongsToMany(Challenge::class, 'challenge_post');
     }
 }

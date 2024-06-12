@@ -43,6 +43,15 @@
                             </select>
                         </div>
                         <div class="form-group">
+                            <label for="challenge_id">Select Challenge (Optional)</label>
+                            <select id="challenge_id" name="challenge_id" class="form-control">
+                                <option value="">Select Challenge</option>
+                                @foreach($challenges as $challenge)
+                                <option value="{{ $challenge->id }}">{{ $challenge->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="form-group">
                             <button type="submit" class="btn btn-primary">Create Post</button>
                         </div>
                     </form>

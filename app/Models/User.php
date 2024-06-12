@@ -85,4 +85,19 @@ class User extends Authenticatable implements MustVerifyEmail
     {
         return $this->hasMany(FollowRequest::class, 'follower_id');
     }
+
+    public function avatar_url()
+    {
+        // Verifica si el usuario tiene una ruta de avatar definida
+        if ($this->avatar_path) {
+            // Si hay una ruta de avatar definida, devuelve la URL completa utilizando la función asset
+            return asset('storage/' . $this->avatar_path);
+        } else {
+            // Si no hay una ruta de avatar definida, puedes devolver una URL de avatar predeterminada o nula según tus necesidades
+            // Por ejemplo, si tienes un avatar predeterminado en tu carpeta de almacenamiento público, puedes usar algo como esto:
+            return asset('storage/default_avatar.png');
+            // O puedes devolver null si no deseas mostrar ningún avatar predeterminado:
+            // return null;
+        }
+    }
 }
