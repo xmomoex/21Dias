@@ -39,20 +39,20 @@
                     <form action="{{ route('comments.react', $comment->id) }}" method="POST" class="mr-2">
                         @csrf
                         <input type="hidden" name="type" value="like">
-                        <button type="submit" class="text-blue-500 hover:text-blue-600">Like</button>
+                        <button type="submit" class="{{ $comment->reactions()->where('type', 'like')->where('user_id', Auth::id())->exists() ? 'text-blue-500' : 'text-gray-500' }} hover:text-blue-600">
+                            {{ $comment->reactions()->where('type', 'like')->where('user_id', Auth::id())->exists() ? 'Unlike' : 'Like' }}
+                        </button>
                     </form>
                     <p class="text-gray-500 ml-2">{{ $comment->reactions()->where('type', 'like')->count() }}</p>
+
                     <form action="{{ route('comments.react', $comment->id) }}" method="POST" class="mr-2">
                         @csrf
                         <input type="hidden" name="type" value="dislike">
-                        <button type="submit" class="text-red-500 hover:text-red-600">Dislike</button>
+                        <button type="submit" class="{{ $comment->reactions()->where('type', 'dislike')->where('user_id', Auth::id())->exists() ? 'text-red-500' : 'text-gray-500' }} hover:text-red-600">
+                            {{ $comment->reactions()->where('type', 'dislike')->where('user_id', Auth::id())->exists() ? 'Undislike' : 'Dislike' }}
+                        </button>
                     </form>
                     <p class="text-gray-500 ml-2">{{ $comment->reactions()->where('type', 'dislike')->count() }}</p>
-                    <form action="{{ route('comments.removeReaction', $comment->id) }}" method="POST">
-                        @csrf
-                        @method('DELETE')
-                        <button type="submit" class="text-gray-500 hover:text-gray-600">Remove Reaction</button>
-                    </form>
                 </div>
                 <div class="ml-4">
                     <form action="{{ route('comments.store') }}" method="POST">

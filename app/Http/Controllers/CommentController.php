@@ -36,27 +36,27 @@ class CommentController extends Controller
         ]);
 
         $comment = Comment::findOrFail($id);
-        $reaction = CommentReaction::updateOrCreate(
-            [
-                'comment_id' => $comment->id,
-                'user_id' => Auth::id(),
-            ],
-            [
-                'type' => $request->type,
-            ]
-        );
+        $reaction = CommentReaction::where('comment_id', $comment->id)
+            ->where('user_id', Auth::id())
+            ->first();
 
-        return redirect()->back()->with('success', 'Reaction added successfully.');
-    }
-
-    public function removeReaction($id)
-    {
-        $reaction = CommentReaction::where('comment_id', $id)->where('user_id', Auth::id())->first();
-        if ($reaction) {
+        if ($reaction && $reaction->type == $request->type) {
+            // If the reaction exists and is of the same type, remove it
             $reaction->delete();
+            return redirect()->back()->with('success', 'Reaction removed successfully.');
+        } else {
+            // Otherwise, create or update the reaction
+            CommentReaction::updateOrCreate(
+                [
+                    'comment_id' => $comment->id,
+                    'user_id' => Auth::id(),
+                ],
+                [
+                    'type' => $request->type,
+                ]
+            );
+            return redirect()->back()->with('success', 'Reaction added successfully.');
         }
-
-        return redirect()->back()->with('success', 'Reaction removed successfully.');
     }
 
 
