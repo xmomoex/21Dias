@@ -9,6 +9,8 @@
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/post.css') }}" rel="stylesheet">
+
 
 
 
@@ -17,6 +19,8 @@
     <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
     <!-- Scripts -->
+
+    <script src="https://kit.fontawesome.com/0a30c633ec.js" crossorigin="anonymous"></script>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
@@ -35,7 +39,11 @@
 
         <!-- Page Content -->
         <main>
-            {{ $slot }}
+
+            <div class="centro-bg">
+                {{ $slot }}
+
+            </div>
         </main>
     </div>
 </body>
