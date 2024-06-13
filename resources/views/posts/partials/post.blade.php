@@ -194,41 +194,45 @@
                 .catch(error => console.error('Error:', error));
         });
 
+
+
         const deleteButton = document.querySelector('.delete-post-' + postId);
 
 
-        deleteButton.addEventListener('click', function() {
-            const postId = deleteButton.getAttribute('data-post-id');
-            // Mostrar mensaje de confirmación
-            const confirmDelete = confirm('¿Estás seguro de que quieres eliminar este post?');
-            if (!confirmDelete) {
-                return; // Si el usuario cancela, no se realiza la eliminación
-            }
+        if (deleteButton) {
+            deleteButton.addEventListener('click', function() {
+                const postId = deleteButton.getAttribute('data-post-id');
+                // Mostrar mensaje de confirmación
+                const confirmDelete = confirm('¿Estás seguro de que quieres eliminar este post?');
+                if (!confirmDelete) {
+                    return; // Si el usuario cancela, no se realiza la eliminación
+                }
 
-            fetch(`/posts/${postId}`, {
-                    method: 'DELETE',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'X-CSRF-TOKEN': '{{ csrf_token() }}'
-                    }
-                })
-                .then(response => response.json())
-                .then(data => {
-                    if (data.success) {
-                        alert(data.message);
-                        // Eliminar el post del DOM
-                        const postElement = document.getElementById(`post-${postId}`);
-                        if (postElement) {
-                            postElement.remove();
+                fetch(`/posts/${postId}`, {
+                        method: 'DELETE',
+                        headers: {
+                            'Content-Type': 'application/json',
+                            'X-CSRF-TOKEN': '{{ csrf_token() }}'
                         }
-                    } else {
-                        alert(data.message);
-                    }
-                })
-                .catch(error => {
-                    alert('An error occurred while deleting the post.');
-                    console.error('Error:', error);
-                });
-        });
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.success) {
+                            alert(data.message);
+                            // Eliminar el post del DOM
+                            const postElement = document.getElementById(`post-${postId}`);
+                            if (postElement) {
+                                postElement.remove();
+                            }
+                        } else {
+                            alert(data.message);
+                        }
+                    })
+                    .catch(error => {
+                        alert('An error occurred while deleting the post.');
+                        console.error('Error:', error);
+                    });
+            });
+        }
     });
 </script>
