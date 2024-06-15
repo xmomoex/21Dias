@@ -5,19 +5,11 @@
         </h2>
     </x-slot>
 
-    <div class="py-12">
-        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
-            <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
-                <div class="p-6 text-gray-900 dark:text-gray-100">
-                    <ul>
-                        @foreach($posts as $post)
-                        <li>
-                            <a href="{{ route('posts.index', $post->id) }}">{{ $post->body }}</a> by {{ $post->user->name }}
-                        </li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
-        </div>
+    <div class="w-100">
+        <ul>
+            @foreach($posts as $post)
+            @include('posts.partials.post', ['post' => $post])
+            @endforeach
+        </ul>
     </div>
 </x-app-layout>

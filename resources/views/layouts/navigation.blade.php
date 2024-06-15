@@ -1,49 +1,23 @@
-<nav x-data="{ open: false }" class="bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
+<nav x-data="{ open: false }" class=" bg-white dark:bg-gray-800 border-b border-gray-100 dark:border-gray-700">
     <!-- Primary Navigation Menu -->
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div class="flex justify-between h-16">
             <div class="flex">
                 <!-- Logo -->
-                <div class="shrink-0 flex items-center">
+                <div class=" shrink-0 flex items-center">
                     <a href="{{ route('posts.index') }}">
                         <x-application-logo class="block h-9 w-auto fill-current text-gray-800 dark:text-gray-200" />
                     </a>
                 </div>
-
                 <!-- Navigation Links -->
-                <div class="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                    <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
-                        {{ __('Dashboard') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('posts.create')" :active="request()->routeIs('posts.create')">
-                        {{ __('Create Post') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('posts.myPosts')" :active="request()->routeIs('posts.myPosts')">
-                        {{ __('My Posts') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('publicprofile.show', Auth::user()->id)" :active="request()->routeIs('publicprofile.show')">
-                        {{ __('Profile') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('users.index', Auth::user()->id)" :active="request()->routeIs('users.index')">
-                        {{ __('Users') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('posts.following')" :active="request()->routeIs('posts.following')">
-                        {{ __('Following Posts') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('messages.index')" :active="request()->routeIs('messages.index')">
-                        {{ __('Messages') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('follow_requests.index')" :active="request()->routeIs('follow_requests.index')">
-                        {{ __('Follow Requests') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('challenges.index')" :active="request()->routeIs('challenges.index')">
-                        {{ __('Challenges') }}
-                    </x-nav-link>
-                    <x-nav-link :href="route('challenges.create')" :active="request()->routeIs('challenges.create')">
-                        {{ __('Create Challenge') }}
-                    </x-nav-link>
-                </div>
             </div>
+
+            <x-nav-link :href="route('posts.index')" :active="request()->routeIs('posts.index')">
+                <i class="fa fa-home"></i>
+            </x-nav-link>
+            <x-nav-link :href="route('posts.following')" :active="request()->routeIs('posts.following')">
+                <i class="fa fa-heart"></i>
+            </x-nav-link>
 
             <!-- Settings Dropdown -->
             <div class="hidden sm:flex sm:items-center sm:ms-6">

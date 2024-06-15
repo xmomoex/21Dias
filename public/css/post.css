@@ -1,3 +1,89 @@
+.app-container {
+    display: flex;
+}
+
+.fixed-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000; /* Ajusta según tu diseño */
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
+}
+.header {
+    display: flex;
+}
+
+/* Estilos generales para la barra de navegación móvil */
+.navigation-movil {
+    display: none; /* Ocultar por defecto */
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #fff;
+    border-top: 1px solid #ddd;
+    box-shadow: 0 -1px 5px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+}
+
+/* Estilos para los enlaces de navegación dentro de la barra */
+.navigation-movil .nav-link {
+    flex: 1;
+    text-align: center;
+    padding: 10px 0;
+    font-size: 20px;
+}
+
+/* Estilos para los iconos */
+.navigation-movil .nav-link i {
+    display: block;
+    margin: 0 auto;
+}
+
+/* Media query para mostrar la barra de navegación móvil en dispositivos pequeños */
+@media (max-width: 1085px) {
+    .navigation-movil {
+        display: flex;
+    }
+}
+
+.navigation-container {
+    position: fixed;
+    top: 70px; /* Adjust depending on your header height */
+    left: 0;
+    width: 250px;
+    height: 100%;
+    background-color: #fff;
+    border-right: 1px solid #ccc;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    overflow-y: auto;
+}
+
+.navigation-container a {
+    display: flex;
+    align-items: center;
+    padding: 10px 20px;
+    color: #333;
+    text-decoration: none;
+    font-size: 16px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.navigation-container a:hover,
+.navigation-container a.active {
+    background-color: #e0f7fa;
+    color: #00acc1;
+}
+
+.navigation-container i {
+    margin-right: 10px;
+    font-size: 20px;
+}
+
 .centro-bg {
     display: flex;
     flex-direction: column;
@@ -32,7 +118,6 @@
     box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1);
     margin: 20px;
     cursor: pointer;
-    width: 100%;
     justify-content: space-between;
 }
 
@@ -101,9 +186,14 @@
     box-shadow: 0px 0px 8px rgba(0, 0, 0, 0.7);
 }
 
+.post .imagen-bg {
+    display: flex;
+    justify-content: center;
+}
+
 .post .imagen {
-    width: 100%;
-    max-height: 400px;
+    /*width: 100%;*/
+    max-height: 500px;
     /*object-fit: cover;*/
 }
 
@@ -117,5 +207,11 @@
     .post {
         width: 96%;
         margin: 2%;
+    }
+}
+
+@media only screen and (max-width: 1085px) {
+    .navigation-container {
+        visibility: hidden;
     }
 }

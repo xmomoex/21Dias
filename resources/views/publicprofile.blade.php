@@ -6,7 +6,7 @@
     </x-slot>
     <div class="profile-card">
         <div class="profile-header">
-            <img src="{{ asset('storage/' . $user->cover_path) }}" alt="Cover Photo" class="cover-photo">
+            <!--<img src="{{ asset('storage/' . $user->cover_path) }}" alt="Cover Photo" class="cover-photo">-->
             <img src="{{ asset('storage/' . $user->avatar_path) }}" alt="Avatar" class="avatar">
         </div>
         <div class="profile-info">

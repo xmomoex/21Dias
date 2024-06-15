@@ -8,7 +8,7 @@
     </div>
     <p class="mb-4">{{ $post->body }}</p>
     @if($post->file_path)
-    <p><img src="{{ asset('storage/' . $post->file_path) }}" alt="Post Image" class="imagen max-w-full h-auto rounded-lg mb-4"></p>
+    <p class="imagen-bg"><img src="{{ asset('storage/' . $post->file_path) }}" alt="Post Image" class="imagen max-w-full h-auto rounded-lg mb-4"></p>
     @endif
     <div class="flex items-center mb-4">
         <button data-post-id="{{ $post->id }}" data-type="like" class="like-button-{{ $post->id }} flex items-center text-blue-500 hover:text-blue-600 mr-2">
