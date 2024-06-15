@@ -166,6 +166,13 @@
     line-height: 1.4;
 }
 
+.follow-button {
+    text-align: center;
+    margin: 10px 0;
+    border: #333 solid 1px;
+    border-radius: 10px;
+}
+
 .profile-stats {
     margin-top: 10px;
     text-align: center;

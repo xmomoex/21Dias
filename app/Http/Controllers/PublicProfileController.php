@@ -28,6 +28,25 @@ class PublicProfileController extends Controller
             ->where('post_reactions.type', 'like')
             ->count();
 
-        return view('publicprofile', compact('user', 'followersCount', 'followingCount', 'likesCount'));
+        $posts = Post::where('user_id', $user->id)
+            ->where(function ($query) use ($user) {
+                $query->where('is_public', '1')
+                    ->orWhere(function ($query) use ($user) {
+                        if (Auth::id() === $user->id) {
+                            $query->orWhere('is_public', '0');
+                        } else {
+                            $query->where('is_public', '0')
+                                ->whereHas('user.followers', function ($q) use ($user) {
+                                    $q->where('follower_id', Auth::id());
+                                });
+                        }
+                    });
+            })
+            ->get();
+
+        $isFollowing = Auth::user()->following->contains($user->id);
+        $isOwnProfile = Auth::id() === $user->id;
+
+        return view('publicprofile', compact('user', 'followersCount', 'followingCount', 'likesCount', 'posts', 'isFollowing', 'isOwnProfile'));
     }
 }
