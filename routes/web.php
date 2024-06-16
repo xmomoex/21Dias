@@ -12,9 +12,20 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\FollowRequestController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('/email/verify', function () {
+    return view('auth.verify-email');
+})->middleware('auth')->name('auth.verify-email');
+
+
+Route::get('/', function () {
+    return redirect()->route('login');
+});
+
+/*
 Route::get('/', function () {
     return view('welcome');
 });
+*/
 
 Route::resource('challenges', ChallengeController::class);
 

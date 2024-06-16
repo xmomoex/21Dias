@@ -115,14 +115,11 @@
                     <i class="far fa-trash-alt"></i>
                 </button>
             </form>
-        </div>
 
-        <div class="flex items-center mb-2">
-            <button class="reply-comment-btn" onclick="toggleReplyForm({{ $reply->id }})">
-                <i class="fas fa-reply"></i> Reply to Comment
+            <button class="ms-4 reply-comment-btn" onclick="toggleReplyForm({{ $reply->id }})">
+                <i class="fas fa-reply"></i>
             </button>
         </div>
-
         <div id="reply-form-{{ $reply->id }}" class="reply-form">
             <form action="{{ route('comments.store') }}" method="POST">
                 @csrf
@@ -130,7 +127,7 @@
                 <input type="hidden" name="parent_id" value="{{ $reply->id }}">
                 <textarea name="comment" placeholder="Reply to {{ $reply->user->name }}" required></textarea>
                 <button type="submit" class="reply-btn">
-                    <i class="fas fa-paper-plane"></i> Reply
+                    <i class="fas fa-paper-plane"></i>
                 </button>
             </form>
         </div>

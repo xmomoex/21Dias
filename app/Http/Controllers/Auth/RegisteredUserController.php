@@ -45,6 +45,6 @@ class RegisteredUserController extends Controller
 
         Auth::login($user);
 
-        return redirect(route('posts.index', absolute: false));
+        return redirect(route('auth.verify-email', absolute: false));
     }
 }

@@ -83,17 +83,19 @@
         <ul class="requests-list">
             @foreach($requests as $request)
             <li>
-                <p>{{ $request->follower->name }}</p>
-                <div class="request-actions">
-                    <form action="{{ route('follow_requests.accept', $request->id) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-success">Accept</button>
-                    </form>
-                    <form action="{{ route('follow_requests.decline', $request->id) }}" method="POST">
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Decline</button>
-                    </form>
-                </div>
+                <a class="w-100" href="{{ route('publicprofile.show', $request->follower_id) }}" class="flex items-center p-4 hover:bg-gray-100 transition-colors duration-200">
+                    <p>{{ $request->follower->name }}</p>
+                    <div class="request-actions">
+                        <form action="{{ route('follow_requests.accept', $request->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-success">Accept</button>
+                        </form>
+                        <form action="{{ route('follow_requests.decline', $request->id) }}" method="POST">
+                            @csrf
+                            <button type="submit" class="btn btn-danger">Decline</button>
+                        </form>
+                    </div>
+                </a>
             </li>
             @endforeach
         </ul>
