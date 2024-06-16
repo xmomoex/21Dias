@@ -17,7 +17,7 @@
 
         <p id="like-count-{{ $post->id }}" class="text-gray-500 mr-2">{{ $post->reactions()->where('type', 'like')->count() }}</p>
 
-        <button data-post-id="{{ $post->id }}" data-type="dislike" class="dislike-button-{{ $post->id }} flex items-center text-red-500 hover:text-red-600 mr-2">
+        <button data-post-id="{{ $post->id }}" data-type="dislike" class="ms-4 dislike-button-{{ $post->id }} flex items-center text-red-500 hover:text-red-600 mr-2">
             <i class="fa-regular fa-thumbs-down"></i>
         </button>
         <p id="dislike-count-{{ $post->id }}" class="text-gray-500">{{ $post->reactions()->where('type', 'dislike')->count() }}</p>
@@ -46,7 +46,7 @@
                     </form>
                     <p class="text-gray-500 ml-2">{{ $comment->reactions()->where('type', 'like')->count() }}</p>
 
-                    <form action="{{ route('comments.react', $comment->id) }}" method="POST" class="mr-2">
+                    <form action="{{ route('comments.react', $comment->id) }}" method="POST" class="mr-2 ms-4">
                         @csrf
                         <input type="hidden" name="type" value="dislike">
                         <button type="submit" class="{{ $comment->reactions()->where('type', 'dislike')->where('user_id', Auth::id())->exists() ? 'text-red-500' : 'text-gray-500' }} hover:text-red-600">
@@ -58,28 +58,34 @@
                         </button>
                     </form>
                     <p class="text-gray-500 ml-2">{{ $comment->reactions()->where('type', 'dislike')->count() }}</p>
+                    @auth
+                    @if(Auth::id() == $comment->user_id)
+                    <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="mt-2">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="bg-red-500 hover:bg-red-600 text-red px-4 py-2 rounded-lg"><i class="fa-solid fa-trash"></i></button>
+                    </form>
+                    @endif
+                    @endauth
                 </div>
-                <div class="ml-4">
+                <div class="flex items-center mb-2">
+                    <button class="reply-comment-btn" onclick="toggleReplyForm({{ $comment->id }})">
+                        <i class="fas fa-reply"></i> Responder comentario
+                    </button>
+                </div>
+                <div id="reply-form-{{ $comment->id }}" class="reply-form">
                     <form action="{{ route('comments.store') }}" method="POST">
                         @csrf
                         <input type="hidden" name="post_id" value="{{ $post->id }}">
                         <input type="hidden" name="parent_id" value="{{ $comment->id }}">
-                        <textarea name="comment" required class="w-full p-2 border rounded-lg mb-2"></textarea>
+                        <textarea name="comment" placeholder="Reply to {{ $comment->user->name }}" required class="w-full p-2 border rounded-lg mb-2"></textarea>
                         <button type="submit" class="bg-blue-500 hover:bg-blue-600 text-black px-4 py-2 rounded-lg"><i class="fa-regular fa-paper-plane"></i></button>
                     </form>
                 </div>
                 @include('comments.replies', ['comments' => $comment->replies])
 
                 <!-- Add Delete Button for the Comment -->
-                @auth
-                @if(Auth::id() == $comment->user_id)
-                <form action="{{ route('comments.destroy', $comment->id) }}" method="POST" class="mt-2">
-                    @csrf
-                    @method('DELETE')
-                    <button type="submit" class="bg-red-500 hover:bg-red-600 text-red px-4 py-2 rounded-lg"><i class="fa-solid fa-trash"></i></button>
-                </form>
-                @endif
-                @endauth
+
             </div>
             @endforeach
         </div>
@@ -102,7 +108,12 @@
     @endauth
 </li>
 
-
+<script>
+    function toggleReplyForm(commentId) {
+        var replyForm = document.getElementById('reply-form-' + commentId);
+        replyForm.style.display = replyForm.style.display === 'none' || replyForm.style.display === '' ? 'block' : 'none';
+    }
+</script>
 <script>
     document.addEventListener('DOMContentLoaded', function() {
         const postId = "{{ $post->id }}";

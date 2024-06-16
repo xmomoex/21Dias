@@ -2,14 +2,9 @@
     display: flex;
 }
 
-.fixed-header {
+.top-navigation {
     position: fixed;
-    top: 0;
-    left: 0;
     width: 100%;
-    z-index: 1000; /* Ajusta según tu diseño */
-    border-bottom: 1px solid #ddd;
-    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1);
 }
 .header {
     display: flex;

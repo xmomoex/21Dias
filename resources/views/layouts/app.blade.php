@@ -6,12 +6,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>21 Dias</title>
 
     <link href="{{ asset('css/custom.css') }}" rel="stylesheet">
     <link href="{{ asset('css/post.css') }}" rel="stylesheet">
 
-
+    <link rel="icon" href="{{ asset('images/21 Dias.png') }}" type="image/x-icon">
 
 
     <!-- Fonts -->

@@ -42,6 +42,7 @@ class PublicProfileController extends Controller
                         }
                     });
             })
+            ->orderByDesc('created_at') // Ordenar por fecha de creación, más nuevo primero
             ->get();
 
         $isFollowing = Auth::user()->following->contains($user->id);
