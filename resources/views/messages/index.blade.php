@@ -50,7 +50,7 @@
         }
     </style>
     <div class="following-container w-100">
-        <h3>Your Following</h3>
+        <h3>Chat</h3>
         <ul class="following-list">
             @foreach($following as $user)
             <li>

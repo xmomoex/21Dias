@@ -71,7 +71,7 @@
         @if ($isFollowing)
         <form action="{{ route('users.unfollow', $user->id) }}" method="POST" class="inline-block">
             @csrf
-            <button type="submit" class="follow-unfollow-btn text-red-500 hover:underline ml-4">Unfollow</button>
+            <button type="submit" class="follow-unfollow-btn text-red-500 hover:underline ml-4">Siguiendo</button>
         </form>
         @else
         @php
@@ -81,11 +81,11 @@
         @endphp
 
         @if ($followRequest)
-        <button type="button" class="follow-unfollow-btn text-yellow-500 ml-4" disabled>Pending</button>
+        <button type="button" class="follow-unfollow-btn text-yellow-500 ml-4" disabled>Pendiente</button>
         @else
         <form action="{{ route('users.follow', $user->id) }}" method="POST" class="inline-block">
             @csrf
-            <button type="submit" class="follow-unfollow-btn text-green-500 hover:underline ml-4">Follow</button>
+            <button type="submit" class="follow-unfollow-btn text-green-500 hover:underline ml-4">Seguir</button>
         </form>
         @endif
         @endif
@@ -93,11 +93,11 @@
 
         <div class="profile-stats">
             <div class="stats">
-                <p>Followers:</p>
+                <p>Seguidores:</p>
                 <p>{{ $followersCount }}</p>
             </div>
             <div class="stats">
-                <p>Following:</p>
+                <p>Siguiendo:</p>
                 <p>{{ $followingCount }}</p>
             </div>
             <div class="stats">
@@ -109,7 +109,7 @@
 
     <div class="w-100">
         @if ($posts->isEmpty())
-        <p>No posts found.</p>
+        <p>No se encontraron posts.</p>
         @else
         <ul>
             @foreach($posts as $post)

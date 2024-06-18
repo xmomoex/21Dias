@@ -78,7 +78,7 @@
 
     <div class="requests-container w-100">
         @if ($requests->isEmpty())
-        <p>No follow requests found.</p>
+        <p>Ninguna solicitud encontrada</p>
         @else
         <ul class="requests-list">
             @foreach($requests as $request)
@@ -88,11 +88,11 @@
                     <div class="request-actions">
                         <form action="{{ route('follow_requests.accept', $request->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-success">Accept</button>
+                            <button type="submit" class="btn btn-success">Aceptar</button>
                         </form>
                         <form action="{{ route('follow_requests.decline', $request->id) }}" method="POST">
                             @csrf
-                            <button type="submit" class="btn btn-danger">Decline</button>
+                            <button type="submit" class="btn btn-danger">Rechazar</button>
                         </form>
                     </div>
                 </a>

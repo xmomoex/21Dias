@@ -75,11 +75,11 @@
 <section class="section-container">
     <header class="section-header">
         <h2 class="text-lg font-medium text-gray-900 dark:text-gray-100">
-            {{ __('Profile Privacy') }}
+            {{ __('Privacidad del Perfil') }}
         </h2>
 
         <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">
-            {{ __('Update your profile privacy settings.') }}
+            {{ __('Cambia tu privacidad del perfil') }}
         </p>
     </header>
 
@@ -88,13 +88,13 @@
         @method('patch')
 
         <div class="form-checkbox">
-            <label for="is_public">{{ __('Make profile public') }}</label>
+            <label for="is_public">{{ __('Hacer mi perfil Público') }}</label>
             <input type="hidden" name="is_public" value="0">
             <input type="checkbox" name="is_public" id="is_public" value="1" {{ Auth::user()->is_public ? 'checked' : '' }}>
         </div>
 
         <div class="form-actions">
-            <button type="submit" class="save-button">{{ __('Save') }}</button>
+            <button type="submit" class="save-button">{{ __('Guardar') }}</button>
 
             @if (session('status') === 'profile-privacy-updated')
             <p x-data="{ show: true }" x-show="show" x-transition x-init="setTimeout(() => show = false, 2000)" class="status-message">{{ __('Saved.') }}</p>

@@ -63,7 +63,7 @@
     <div class="w-100">
         <div class="">
             <div class="form-container">
-                <h1 class="text-2xl font-bold mb-6">Create a new Post</h1>
+                <h1 class="text-2xl font-bold mb-6">Crea un nuevo Post</h1>
 
                 @if ($errors->any())
                 <div class="alert alert-danger">
@@ -87,27 +87,27 @@
                         <input type="text" id="group_id" name="group_id" class="form-control" value="{{ old('group_id') }}">
                     </div>-->
                     <div class="form-group">
-                        <label for="file">Upload File (Optional)</label>
+                        <label for="file">sube un archivo (opcional)</label>
                         <input type="file" id="file" name="file" class="form-control">
                     </div>
                     <div class="form-group">
-                        <label for="is_public">Privacy</label>
+                        <label for="is_public">Privacidad</label>
                         <select id="is_public" name="is_public" class="form-control">
-                            <option value="1">Public</option>
-                            <option value="0">Private</option>
+                            <option value="1">Publico</option>
+                            <option value="0">Privado</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="challenge_id">Select Challenge (Optional)</label>
+                        <label for="challenge_id">Selecciona un challenge (Opcional)</label>
                         <select id="challenge_id" name="challenge_id" class="form-control">
-                            <option value="">Select Challenge</option>
+                            <option value="">Selecciona un challenge</option>
                             @foreach($challenges as $challenge)
                             <option value="{{ $challenge->id }}">{{ $challenge->name }}</option>
                             @endforeach
                         </select>
                     </div>
                     <div class="form-group">
-                        <button type="submit" class="btn btn-primary">Create Post</button>
+                        <button type="submit" class="btn btn-primary">Crear Post</button>
                     </div>
                 </form>
             </div>

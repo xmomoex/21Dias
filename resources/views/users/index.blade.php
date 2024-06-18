@@ -93,14 +93,14 @@
                             @if (Auth::user()->following->contains($user->id))
                             <form action="{{ route('users.unfollow', $user->id) }}" method="POST" class="inline-block ml-4">
                                 @csrf
-                                <button type="submit" class="text-red-500 hover:underline">Unfollow</button>
+                                <button type="submit" class="text-red-500 hover:underline">Siguiendo</button>
                             </form>
                             @elseif ($followRequests->contains('user_id', $user->id))
-                            <button class="text-yellow-500 ml-4">Pending</button>
+                            <button class="text-yellow-500 ml-4">Pendiente</button>
                             @else
                             <form action="{{ route('users.follow', $user->id) }}" method="POST" class="inline-block ml-4">
                                 @csrf
-                                <button type="submit" class="text-green-500 hover:underline">Follow</button>
+                                <button type="submit" class="text-green-500 hover:underline">Seguir</button>
                             </form>
                             @endif
                         </div>

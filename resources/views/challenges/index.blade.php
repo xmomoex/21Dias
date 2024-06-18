@@ -59,7 +59,7 @@
     </style>
 
     <div class="container w-100">
-        <a href="{{ route('challenges.create') }}" class="btn-primary">Create New Challenge</a>
+        <a href="{{ route('challenges.create') }}" class="btn-primary">Crear Nuevo Challenge</a>
         <ul class="challenge-list">
             @foreach($challenges as $challenge)
             <li>

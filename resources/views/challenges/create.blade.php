@@ -1,7 +1,7 @@
 <x-app-layout>
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-            {{ __('Create Challenge') }}
+            {{ __('Crear Challenge') }}
         </h2>
     </x-slot>
 
@@ -60,15 +60,15 @@
         }
     </style>
     <div class="form-container w-100">
-        <h1 class="text-title">Create a new Challenge</h1>
+        <h1 class="text-title">Crea un nuevo Challenge</h1>
         <form action="{{ route('challenges.store') }}" method="POST">
             @csrf
             <div class="form-group">
-                <label for="name">Name</label>
+                <label for="name">Nombre</label>
                 <input type="text" id="name" name="name" class="form-control" required>
             </div>
             <div class="form-group">
-                <label for="description">Description</label>
+                <label for="description">Descripcion</label>
                 <textarea id="description" name="description" class="form-control"></textarea>
             </div>
             <button type="submit" class="btn-primary">Create</button>

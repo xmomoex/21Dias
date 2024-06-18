@@ -95,7 +95,7 @@
         <form action="{{ route('messages.store') }}" method="POST" class="chat-form">
             @csrf
             <input type="hidden" name="receiver_id" value="{{ $user->id }}">
-            <textarea name="message" rows="1" class="form-control" placeholder="Type a message" required></textarea>
+            <textarea name="message" rows="1" class="form-control" placeholder="Escribe un mensaje" required></textarea>
             <button type="submit" class="btn-primary">
                 <i class="fa fa-paper-plane"></i>
             </button>
