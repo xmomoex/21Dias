@@ -26,7 +26,7 @@ class UserController extends Controller
 
         if ($user->is_public) {
             Auth::user()->following()->attach($user->id, ['status' => 'accepted']);
-            return redirect()->route('users.index')->with('success', 'You are now following ' . $user->name);
+            return redirect()->route('publicprofile.show', $user->id)->with('success', 'You are now following ' . $user->name);
         } else {
             $existingRequest = FollowRequest::where('user_id', $user->id)
                 ->where('follower_id', Auth::id())
@@ -38,7 +38,7 @@ class UserController extends Controller
                     'follower_id' => Auth::id(),
                 ]);
             }
-            return redirect()->route('users.index')->with('success', 'Follow request sent to ' . $user->name);
+            return redirect()->route('publicprofile.show', $user->id)->with('success', 'Follow request sent to ' . $user->name);
         }
     }
 
@@ -46,6 +46,6 @@ class UserController extends Controller
     {
         $user = User::findOrFail($id);
         Auth::user()->following()->detach($user->id);
-        return redirect()->route('users.index')->with('success', 'You have unfollowed ' . $user->name);
+        return redirect()->route('publicprofile.show', $user->id)->with('success', 'You have unfollowed ' . $user->name);
     }
 }

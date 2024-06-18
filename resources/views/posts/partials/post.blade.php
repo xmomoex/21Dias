@@ -79,10 +79,14 @@
 <li class="post bg-white dark:bg-gray-100 shadow-md rounded-lg p-4 mb-4" id="post-{{ $post->id }}">
     <a class="w-100" href="{{ route('publicprofile.show', $post->user) }}" class="flex items-center p-4 hover:bg-gray-100 transition-colors duration-200">
         <div class="top">
-            <img src="{{ $post->user->avatar_url() }}" alt="{{ $post->user->name }}'s Avatar" class="w-12 h-12 rounded-full mr-3">
+            <img src="{{ $post->user->avatar_path ? asset('storage/' . $post->user->avatar_path) : asset('images/default-avatar.png') }}" alt="Avatar" class="w-12 h-12 rounded-full mr-3">
+
             <div class="ms-4">
                 <p class="nombre font-bold">{{ $post->user->name }}</p>
                 <p class="text-sm text-gray-500">{{ $post->created_at->diffForHumans() }}</p>
+                @if ($post->is_public==0)
+                <i class="fa-solid fa-lock text-gray-500 text-sm ms-1" title="Post privado"></i>
+                @endif
             </div>
         </div>
     </a>
@@ -118,7 +122,7 @@
                     </button>
                 </form>
                 <p class="action-count">{{ $comment->reactions()->where('type', 'like')->count() }}</p>
-                <form action="{{ route('comments.react', $comment->id) }}" method="POST" class="comment-action-form">
+                <form action="{{ route('comments.react', $comment->id) }}" method="POST" class="ms-4 comment-action-form">
                     @csrf
                     <input type="hidden" name="type" value="dislike">
                     <button type="submit" class="action-button {{ $comment->reactions()->where('type', 'dislike')->where('user_id', Auth::id())->exists() ? 'text-red-500' : 'text-gray-500' }} hover:text-red-600">
@@ -301,8 +305,7 @@
                     .then(response => response.json())
                     .then(data => {
                         if (data.success) {
-                            alert(data.message);
-                            // Eliminar el post del DOM
+
                             const postElement = document.getElementById(`post-${postId}`);
                             if (postElement) {
                                 postElement.remove();
